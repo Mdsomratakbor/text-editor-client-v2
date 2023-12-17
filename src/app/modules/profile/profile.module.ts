@@ -14,6 +14,7 @@ import {
   WidgetsModule,
 } from '../../_metronic/partials';
 import { SharedModule } from "../../_metronic/shared/shared.module";
+import { AngularEditorModule } from '@kolkov/angular-editor';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { SharedModule } from "../../_metronic/shared/shared.module";
     DropdownMenusModule,
     WidgetsModule,
     CardsModule,
-    SharedModule
+    SharedModule,
+    AngularEditorModule
   ],
 })
 export class ProfileModule {}
