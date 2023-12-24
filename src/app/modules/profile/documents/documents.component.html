@@ -1,9 +1,122 @@
 <div class="container-fluid">
   <div class="row">
+
     <!-- Page content -->
     <div class="col-md-9 content">
+      <form [formGroup]="textEditorForm">
+        <nav class="navbar navbar-expand-sm navbar-light bg-success">
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+          </button>
+      
+          <div class="collapse navbar-collapse" id="navbarNav">
+              <ul class="navbar-nav">
+                  <li class="nav-item dropdown">
+                      <a class="nav-link dropdown-toggle text-white" href="#" id="btnFileMenu" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          File
+                      </a>
+                      <div class="dropdown-menu" aria-labelledby="btnFileMenu">
+                          <a class="dropdown-item text-white" href="#">Dropdown link 1</a>
+                          <a class="dropdown-item text-white" href="#">Dropdown link 2</a>
+                      </div>
+                  </li>
+      
+                  <li class="nav-item">
+                      <a class="nav-link text-white" href="#">Home</a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link text-white" href="#">Insert</a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link text-white" href="#">Design</a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link text-white" href="#">Layout</a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link text-white" href="#">References</a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link text-white" href="#">Mailings</a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link text-white" href="#">Review</a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link text-white" href="#">View</a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link text-white" href="#">Developer</a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link text-white" href="#">Help</a>
+                  </li>
+              </ul>
+          </div>
+      </nav>
+      
       <angular-editor formControlName="htmlContent" [config]="editorConfig"></angular-editor>
+      <div class="container mt-4">
+        <div class="row space-y-3 text-left">
+          <div class="col-md-6">
+            <div class="form-group">
+              <div class="relative">
+                <label for="docName" class="absolute top-2 left-1 z-10 origin-[0] -translate-y-4 scale-95 transform bg-white px-2 text-sm text-gray-500 duration-300 peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:scale-100 peer-focus:top-2 peer-focus:-translate-y-4 peer-focus:scale-95 peer-focus:px-2 peer-focus:text-primary-500 dark:bg-night-700 dark:text-night-200">
+                  Document Name
+                </label>
+                <input type="text" id="docName" name="docName" class="form-control" formControlName="docName" required placeholder="">
+               
+                <div *ngIf="textEditorForm.get('docName')?.hasError('required') && textEditorForm.get('docName')?.touched" class="text-danger mt-2 text-xs">
+                  Document Name is required.
+                </div>
+              </div>
+            </div>
+          </div>
+      
+          <div class="col-md-6">
+            <div class="form-group">
+              <div class="relative">
+                <label for="docDescription" class="absolute top-2 left-1 z-10 origin-[0] -translate-y-4 scale-95 transform bg-white px-2 text-sm text-gray-500 duration-300 peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:scale-100 peer-focus:top-2 peer-focus:-translate-y-4 peer-focus:scale-95 peer-focus:px-2 peer-focus:text-primary-500 dark:bg-night-700 dark:text-night-200">
+                  Document Description
+                </label>
+                <textarea type="text" rows="1" id="docDescription" name="docDescription" class="form-control" formControlName="docDescription" required placeholder=""></textarea>
+             
+              </div>
+            </div>
+          </div>
+        </div>
+      
+        <div class="row space-y-3 text-left">
+          <!-- Document Type Dropdown -->
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="docType" class="absolute top-2 left-1 z-10 origin-[0] -translate-y-4 scale-95 transform bg-white px-2 text-sm text-gray-500 duration-300 peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:scale-100 peer-focus:top-2 peer-focus:-translate-y-4 peer-focus:scale-95 peer-focus:px-2 peer-focus:text-primary-500 dark:bg-night-700 dark:text-night-200">
+                Document Type
+              </label>
+              <select id="docType" class="form-control" formControlName="docType">
+                <option value="excel">Excel</option>
+                <option value="word">Doc</option>
+                <option value="pdf">PDF</option>
+              </select>
+             
+            </div>
+          </div>
+      
+          <div class="col-md-6">
+            <button [disabled]="textEditorForm.invalid && isLoading" (click)="saveUserDocument()" class="btn btn-sm btn-primary mt-6 w-100">
+              <span class="ms-3">Save</span>
+              <svg *ngIf="isLoading" class="ml-1 mr-3 h-5 w-5 animate-spin text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+      
+      </form>
     </div>
+
 <!-- Collapsible right sidebar -->
 <div class="col-md-3 d-none d-md-block text-center">
    <!-- Pages -->
@@ -11,28 +124,26 @@
   <span class="menu-link"><span class="menu-icon"><span class="svg-icon svg-icon-2"
         [inlineSVG]="'./assets/media/icons/duotune/general/gen022.svg'"></span></span><span
       class="menu-title">Documents</span><span class="menu-arrow"></span></span>
-  <div class="menu-sub menu-sub-accordion" routerLinkActive="menu-active-bg">
-    <div class="menu-item menu-accordion" routerLinkActive="here show" data-kt-menu-trigger="click">
-      <span class="menu-link"><span class="menu-bullet"><span class="bullet bullet-dot"></span></span><span
-          class="menu-title" data-link="/crafted/pages/profile">Profile</span><span
-          class="menu-arrow"></span></span>
-      <div class="menu-sub menu-sub-accordion" routerLinkActive="menu-active-bg">
-
-        <div class="menu-item">
-          <a class="menu-link without-sub" routerLinkActive="active"
-            routerLink="/crafted/pages/profile/documents"><span class="menu-bullet"><span
-                class="bullet bullet-dot"></span></span><span class="menu-title">Documents</span></a>
+      <div class="menu-sub menu-sub-accordion" *ngFor="let menuItem of menuItems" routerLinkActive="menu-active-bg">
+        <div class="menu-item menu-accordion"  routerLinkActive="here show" data-kt-menu-trigger="click">
+          <span class="menu-link" (click)="toggleSubmenu(menuItem)"><span class="menu-bullet"><span class="bullet bullet-dot"></span></span><span
+              class="menu-title" data-link="/crafted/pages/profile">{{ menuItem.label }}</span><span
+              class="menu-arrow"></span></span>
+          <div class="menu-sub menu-sub-accordion" *ngIf="menuItem.submenu && menuItem.submenu.length > 0" routerLinkActive="menu-active-bg">
+            <div *ngIf="menuItem.submenu && menuItem.submenu.length > 0 && menuItem.open">
+    
+              <div class="menu-item" *ngFor="let submenuItem of menuItem.submenu">
+                <a class="menu-link without-sub" routerLinkActive="active" routerLink="/crafted/account/overview"><span
+                    class="menu-bullet"><span class="bullet bullet-dot"></span></span><span
+                    class="menu-title">{{ submenuItem.label }}</span></a>
+              </div>
+            </div>
+           
+    
+          </div>
         </div>
-        <div class="menu-item">
-          <a class="menu-link without-sub" routerLinkActive="active" routerLink="/crafted/account/overview"><span
-              class="menu-bullet"><span class="bullet bullet-dot"></span></span><span
-              class="menu-title">Overview</span></a>
-        </div>
-
+    
       </div>
-    </div>
-
-  </div>
 </div>
 </div>
 
