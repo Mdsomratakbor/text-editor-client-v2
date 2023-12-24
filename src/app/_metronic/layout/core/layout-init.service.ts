@@ -56,7 +56,7 @@ export class LayoutInitService {
       'headerContainer',
       this.layout.getProp('header.width') === 'fluid'
         ? 'container-fluid'
-        : 'container-xxl'
+        : 'container-fluid'
     );
 
     const fixedDesktop = this.layout.getProp('header.fixed.desktop') as boolean;
@@ -101,7 +101,7 @@ export class LayoutInitService {
     const width = this.layout.getProp('content.width') as string;
     this.layout.setCSSClass(
       'contentContainer',
-      width === 'fluid' ? 'container-fluid' : 'container-xxl'
+      width === 'fluid' ? 'container-fluid' : 'container-fluid'
     );
   }
 

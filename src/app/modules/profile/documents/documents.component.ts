@@ -4,6 +4,7 @@ import { AngularEditorConfig } from '@kolkov/angular-editor';
 @Component({
   selector: 'app-documents',
   templateUrl: './documents.component.html',
+  styleUrls: ['./documents.component.scss'],
 })
 export class DocumentsComponent {
   constructor() {}

@@ -1,4 +1,45 @@
-<angular-editor formControlName="htmlContent" [config]="editorConfig"></angular-editor>
+<div class="container-fluid">
+  <div class="row">
+    <!-- Page content -->
+    <div class="col-md-9 content">
+      <angular-editor formControlName="htmlContent" [config]="editorConfig"></angular-editor>
+    </div>
+<!-- Collapsible right sidebar -->
+<div class="col-md-3 d-none d-md-block text-center">
+   <!-- Pages -->
+ <div class="menu-item menu-accordion" data-kt-menu-trigger="click" routerLinkActive="here show">
+  <span class="menu-link"><span class="menu-icon"><span class="svg-icon svg-icon-2"
+        [inlineSVG]="'./assets/media/icons/duotune/general/gen022.svg'"></span></span><span
+      class="menu-title">Documents</span><span class="menu-arrow"></span></span>
+  <div class="menu-sub menu-sub-accordion" routerLinkActive="menu-active-bg">
+    <div class="menu-item menu-accordion" routerLinkActive="here show" data-kt-menu-trigger="click">
+      <span class="menu-link"><span class="menu-bullet"><span class="bullet bullet-dot"></span></span><span
+          class="menu-title" data-link="/crafted/pages/profile">Profile</span><span
+          class="menu-arrow"></span></span>
+      <div class="menu-sub menu-sub-accordion" routerLinkActive="menu-active-bg">
+
+        <div class="menu-item">
+          <a class="menu-link without-sub" routerLinkActive="active"
+            routerLink="/crafted/pages/profile/documents"><span class="menu-bullet"><span
+                class="bullet bullet-dot"></span></span><span class="menu-title">Documents</span></a>
+        </div>
+        <div class="menu-item">
+          <a class="menu-link without-sub" routerLinkActive="active" routerLink="/crafted/account/overview"><span
+              class="menu-bullet"><span class="bullet bullet-dot"></span></span><span
+              class="menu-title">Overview</span></a>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+</div>
+
+
+
+  </div>
+</div>
 <!-- <div class="d-flex flex-wrap flex-stack mb-6">
   <h3 class="fw-bolder my-2">
     My Documents
