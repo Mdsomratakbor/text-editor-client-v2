@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
+import html2canvas from 'html2canvas';
+import jspdf from 'jspdf';
 interface MenuItem {
   label: string;
   submenu?: MenuItem[];
@@ -13,6 +15,7 @@ interface MenuItem {
 })
 
 export class DocumentsComponent {
+
   constructor(private fb: FormBuilder) {
        this.textEditorForm = this.fb.group({
       docHtmlContent: new FormControl('', Validators.required) ,
@@ -21,11 +24,44 @@ export class DocumentsComponent {
       docType: new FormControl(''),
     });
   }
+  showHideTheToolbar(){
+    this.editorConfig.showToolbar = !this.editorConfig.showToolbar;
+  }
+ 
+  exportPdf()
+{  
+    var data = this.textEditorForm.controls["docHtmlContent"].getRawValue();  
+    var document :any = '<html><head><link href="app/assets/css/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/><link href="app/assets/css/print.css" rel="stylesheet" type="text/css"/><style></style> </head><body onload="window.print()">' + data + '</body></html>'
+    html2canvas(document).then(canvas => {  
+        var imgWidth = 208;   
+        var pageHeight = 295;    
+        var imgHeight = canvas.height * imgWidth / canvas.width;  
+        var heightLeft = imgHeight;  
 
+        const contentDataURL = canvas.toDataURL('image/png')  
+        let pdf = new jspdf('p', 'mm', 'a4');  
+        var position = 0;  
+        pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight)  
+        pdf.save('MYPdf.pdf');   
+    }); 
+    
+    
+}
+
+printDocument() {
+  var data = this.textEditorForm.controls["docHtmlContent"].getRawValue();  
+  var newWin = window.open('', 'Print-Window', 'width=1200,height=700');
+  if(newWin !== null){
+  newWin?.document.open();
+  newWin?.document.write('<html><head><link href="app/assets/css/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/><link href="app/assets/css/print.css" rel="stylesheet" type="text/css"/><style></style> </head><body onload="window.print()">' + data + '</body></html>');
+  newWin.document.title = 'Your PDF Title';
+  newWin?.document.close();
+  }
+  }
   editorConfig: AngularEditorConfig = {
     editable: true,
       spellcheck: true,
-      height: 'auto',
+      height: '20rem',
       minHeight: '0',
       maxHeight: 'auto',
       width: 'auto',
@@ -36,7 +72,7 @@ export class DocumentsComponent {
       placeholder: 'Enter text here...',
       defaultParagraphSeparator: '',
       defaultFontName: '',
-      defaultFontSize: '',
+      defaultFontSize: '2',
       fonts: [
         {class: 'arial', name: 'Arial'},
         {class: 'times-new-roman', name: 'Times New Roman'},
@@ -59,16 +95,12 @@ export class DocumentsComponent {
       },
     ],
     uploadUrl: 'v1/image',
-    // upload: (file: File) => { ... }
-    // uploadWithCredentials: false,
-    // sanitize: true,
-    // toolbarPosition: 'top',
-    // toolbarHiddenButtons: [
-    //   ['bold', 'italic'],
-    //   ['fontSize']
-  //  ]
+
 };
 
+clearTheDocument(){
+  this.textEditorForm.controls["docHtmlContent"].setValue("");
+}
 isSidebarCollapsed: boolean = false;
   isAuthenticate: boolean = false;
   userId: string = '';

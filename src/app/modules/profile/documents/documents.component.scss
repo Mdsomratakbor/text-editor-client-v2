@@ -1,4 +1,23 @@
 .rotate {
     transform: rotate(90deg);
   }
-  
+  .menu-item .menu-link {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    padding: 0;
+    flex: 0 0 100%;
+    padding: 0.65rem .5rem !important;
+    transition: none;
+    outline: none !important;
+  }
+  .menu-item {
+    display: block;
+    padding: 0.05rem 0;
+  }
+
+  .angular-editor-toolbar-set {
+    .block-label {
+      display: none;
+    }
+  }
